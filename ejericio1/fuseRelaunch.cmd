@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "E:/Programas/Xilinx/TareaMaquinaEstados/ejericio1/MooreCartaASM_isim_beh.exe" -prj "E:/Programas/Xilinx/TareaMaquinaEstados/ejericio1/MooreCartaASM_beh.prj" "work.MooreCartaASM" 
