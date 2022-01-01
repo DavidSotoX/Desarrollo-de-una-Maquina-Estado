@@ -1,0 +1,2 @@
+xst -intstyle ise -ifn "E:/Programas/Xilinx/TareaMaquinaEstados/alarma/alarma.xst" -ofn "E:/Programas/Xilinx/TareaMaquinaEstados/alarma/alarma.syr" 
+xst -intstyle ise -ifn "E:/Programas/Xilinx/TareaMaquinaEstados/alarma/alarma.xst" -ofn "E:/Programas/Xilinx/TareaMaquinaEstados/alarma/alarma.syr" 
