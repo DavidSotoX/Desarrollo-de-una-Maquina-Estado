@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "E:/Programas/Xilinx/TareaMaquinaEstados/MaquinaDespachadoraRefrescos/ts_isim_beh.exe" -prj "E:/Programas/Xilinx/TareaMaquinaEstados/MaquinaDespachadoraRefrescos/ts_beh.prj" "work.ts" 
