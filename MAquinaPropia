@@ -1,0 +1,51 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+
+entity Vida is
+	port(
+		CLK: in std_logic;
+		DEBER, DM1, SUBIRO_O_CAMBIAR, SUBIDOEXITOSAMENTE, CAMBIADOEXITOSAMENTE: in std_logic;
+		LIMPIA, SUBIDO, CAMBIO, INGRESADEBER, DEBERENTREGADO, Q2, Q1, Q0: out std_logic
+	);
+
+end Vida;
+
+architecture Behavioral of Vida is
+	type estados is (A, B, C, D, E, F, G, H);
+	signal edo_pres, edo_fut: estados;
+begin
+
+p_estados: process (edo_pres, DEBER, DM1, SUBIRO_O_CAMBIAR, SUBIDOEXITOSAMENTE, CAMBIADOEXITOSAMENTE)
+	begin
+		case edo_pres is
+			when A => LIMPIA <='0'; SUBIDO <= '0'; CAMBIO <= '0'; INGRESADEBER <='1'; Q2 <= '0'; Q1 <= '0'; Q0 <='0';
+						if DEBER = '1' then edo_fut <= B; else edo_fut <= A; end if;
+			when B => LIMPIA <='0'; SUBIDO <= '0'; CAMBIO <= '0'; INGRESADEBER <='0'; Q2 <= '0'; Q1 <= '0'; Q0 <='1';
+						if DEBER = '0' then edo_fut <= C; else edo_fut <= B; end if;
+			when C => LIMPIA <='0'; SUBIDO <= '0'; CAMBIO <= '0'; INGRESADEBER <='0'; Q2 <= '0'; Q1 <= '1'; Q0 <='0';
+						if DM1 = '1' then edo_fut <= D; else edo_fut <= A; end if;
+			when D => LIMPIA <='0'; SUBIDO <= '0'; CAMBIO <= '0'; INGRESADEBER <='0'; Q2 <= '0'; Q1 <= '1'; Q0 <='1';
+						if SUBIRO_O_CAMBIAR = '0' then edo_fut <= H; else edo_fut <= E; end if;
+			when E => LIMPIA <='0'; SUBIDO <= '1'; CAMBIO <= '0'; INGRESADEBER <='0'; Q2 <= '1'; Q1 <= '0'; Q0 <='0';
+						if SUBIDOEXITOSAMENTE = '0' then edo_fut <= E; else edo_fut <= F; end if;
+			when F => LIMPIA <='0'; SUBIDO <= '0'; CAMBIO <= '0'; INGRESADEBER <='0'; Q2 <= '1'; Q1 <= '0'; Q0 <='0';
+						edo_fut <= G; 	DEBERENTREGADO <='1';		
+			when G => LIMPIA <='1'; SUBIDO <= '0'; CAMBIO <= '0'; INGRESADEBER <='0'; Q2 <= '1'; Q1 <= '0'; Q0 <='1';
+						edo_fut <= A; 
+			when H => LIMPIA <='0'; SUBIDO <= '0'; CAMBIO <= '1'; INGRESADEBER <='0'; Q2 <= '1'; Q1 <= '1'; Q0 <='1';
+						if CAMBIADOEXITOSAMENTE = '1' then edo_fut <= D; else edo_fut <= H; end if;
+			when others => null;
+		end case;
+	end process p_estados;
+
+	
+
+	p_reloj: process (CLK) begin
+		if (CLK'event and CLK = '1') then
+			edo_pres <= edo_fut;
+		end if;
+	end process p_reloj;
+	
+end Behavioral;
